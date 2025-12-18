@@ -1,132 +1,142 @@
-/* 1. Global Reset & Dark Theme */
+/* 1. Global Full Screen Setup */
 body {
-    background-color: #050505;
-    /* Pitch black background */
+    /* Matching the dark grey from your reference image */
+    background: radial-gradient(circle at center, #2b2b2b 0%, #1a1a1a 100%);
     color: #fff;
-    font-family: 'Roboto Mono', 'Courier New', monospace;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    font-family: 'Roboto Mono', monospace;
     height: 100vh;
     margin: 0;
     overflow: hidden;
-}
-
-/* 2. The Stage */
-.stage {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-}
-
-/* 3. The Clock Container */
-.clock {
-    display: flex;
-    gap: 15px;
-    /* Spacing between reels */
-    padding: 0 20px;
-    height: 240px;
-    /* Viewport height (3 x 80px numbers) */
-    position: relative;
-
-    /* This creates the "Fade into darkness" at top/bottom */
-    -webkit-mask-image: linear-gradient(to bottom,
-            transparent 0%,
-            black 25%,
-            black 75%,
-            transparent 100%);
-    mask-image: linear-gradient(to bottom,
-            transparent 0%,
-            black 25%,
-            black 75%,
-            transparent 100%);
-}
-
-/* 4. The "Glass Lens" Overlay */
-/* This sits ON TOP of the clock to create the shiny bar effect */
-.lens {
-    position: absolute;
-    top: 50%;
-    /* Center vertically */
-    left: -20px;
-    right: -20px;
-    height: 80px;
-    /* Slightly taller than one number */
-    transform: translateY(-50px);
-    /* Adjust based on padding/label spacing */
-
-    /* Glass Effect */
-    background: linear-gradient(to bottom,
-            rgba(255, 255, 255, 0.05) 0%,
-            rgba(255, 255, 255, 0.01) 50%,
-            rgba(255, 255, 255, 0.05) 100%);
-    border-top: 1px solid rgba(255, 255, 255, 0.3);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-    box-shadow:
-        0 0 15px rgba(0, 0, 0, 0.8),
-        inset 0 0 20px rgba(255, 255, 255, 0.02);
-
-    pointer-events: none;
-    /* Let clicks pass through */
-    z-index: 10;
-    border-radius: 4px;
-}
-
-/* 5. The Columns (The "Tracks") */
-.column {
-    width: 70px;
-    /* Width of the tape */
-    position: relative;
-    /* Optional: Dark track behind the tape */
-    background: rgba(255, 255, 255, 0.02);
-    border-radius: 4px;
-}
-
-/* 6. The Moving Ribbon (The "Tape") */
-.numbers {
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
-    /* "Springy" mechanical ease */
-
-    /* The Ribbon Look */
-    background: #1a1a1a;
-    /* Dark Grey Ribbon */
-    border-radius: 4px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    border: 1px solid #333;
-}
-
-/* 7. The Numbers */
-.num {
-    height: 80px;
-    /* Taller numbers */
+    /* Prevent scrolling if reels get too long */
     display: flex;
     justify-content: center;
     align-items: center;
-
-    font-size: 42px;
-    font-weight: 700;
-    color: #888;
-    /* Inactive numbers are dim */
-    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* OPTIONAL: Highlight the active number */
-/* Since we can't target the "current" one easily in CSS alone, 
-   we rely on the lens and mask to frame it. 
-   But we can make the text slightly brighter globally 
-   and rely on the mask to dim the others. */
+.stage {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+/* 2. The Clock Container (Full Screen) */
+.clock {
+    width: 100%;
+    height: 100vh;
+    /* Fill the page */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+/* 3. The Columns (Full Height Tracks) */
+.column {
+    position: relative;
+    width: 80px;
+    height: 100vh;
+    /* Fill vertical space */
+    margin: 0 5px;
+
+    /* CRITICAL: Allow ribbons to extend fully up and down */
+    overflow: visible;
+
+    /* Flex alignment for the lens pseudo-element */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Group spacing */
+.column:nth-child(2),
+.column:nth-child(4) {
+    margin-right: 40px;
+}
+
+/* 4. The Lens (Circular Spotlight) */
+.column::after {
+    content: '';
+    position: absolute;
+    /* Since column is flex-centered, we just need dimensions */
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+
+    /* Lens Styles */
+    background: radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.05), transparent 60%);
+    box-shadow:
+        0 15px 35px rgba(0, 0, 0, 0.8),
+        inset 0 2px 3px rgba(255, 255, 255, 0.2),
+        inset 0 -2px 10px rgba(0, 0, 0, 0.6);
+
+    backdrop-filter: brightness(1.6) contrast(1.1);
+    z-index: 10;
+    /* Above numbers, below text */
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* 5. The Moving Ribbon */
+.numbers {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    /* UPDATED WIDTH & CENTERING */
+    width: 60px;
+    /* Was 50px */
+    margin-left: -30px;
+    /* Was -25px (Must be half of width) */
+
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    background: #1f1f1f;
+    border-radius: 30px;
+    /* Slight adjustment to match new width */
+    border: 1px solid #333;
+    padding: 20px 0;
+
+    box-sizing: content-box;
+}
+
 .num {
-    color: #e0e0e0;
+    height: 80px;
+    line-height: 80px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 32px;
+    font-weight: 700;
+    color: #777;
+    /* Readable but dimmer than active */
 }
 
+/* 6. The Glowing Text Label */
 .label {
-    color: #555;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 3px;
-    margin-top: 20px;
+    position: absolute;
+    /* Position it visually on top of the reels */
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
+
+    font-size: 14px;
+    letter-spacing: 0.3em;
+    font-weight: 700;
+    color: #fff;
+
+    /* THE GLOW EFFECT */
+    text-shadow:
+        0 0 10px rgba(255, 255, 255, 0.5),
+        0 0 20px rgba(255, 255, 255, 0.4);
+
+    z-index: 100;
+    /* Sit on top of everything */
+    pointer-events: none;
+    background: rgba(0, 0, 0, 0.7);
+    /* Optional: tiny background for readability */
+    padding: 5px 10px;
+    border-radius: 4px;
 }
