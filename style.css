@@ -1,0 +1,84 @@
+body {
+    background-color: #0d0d0d;
+    color: #e0e0e0;
+    font-family: 'Courier New', monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.clock {
+    display: flex;
+    gap: 8px;
+    padding: 25px;
+    background: #1a1a1a;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+    position: relative;
+    border: 1px solid #333;
+}
+
+/* The "Lens" (Middle Highlight) */
+.clock::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    right: 10px;
+    height: 70px;
+    /* Window height */
+    background: rgba(255, 255, 255, 0.03);
+    transform: translateY(-50%);
+    border-radius: 12px;
+    pointer-events: none;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5) inset;
+}
+
+.column {
+    width: 50px;
+    height: 210px;
+    /* 3 numbers visible */
+    overflow: hidden;
+    position: relative;
+    background: #222;
+    border-radius: 8px;
+    /* Fade top and bottom */
+    -webkit-mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+    mask-image: linear-gradient(to bottom, transparent, black 30%, black 70%, transparent);
+}
+
+.numbers {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+    /* Bouncy/Smooth */
+    will-change: transform;
+}
+
+.num {
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 36px;
+    font-weight: 700;
+    color: #666;
+}
+
+.label {
+    font-size: 14px;
+    opacity: 0.5;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
