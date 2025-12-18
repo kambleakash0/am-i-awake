@@ -59,6 +59,9 @@ const numberHeight = 70; // This must match .num height in CSS
 function updateClock() {
     const now = new Date();
 
+    // MUST match the height defined in CSS (.num height)
+    const numberHeight = 80;
+
     // Convert current time to the Target Timezone
     const options = {
         timeZone: targetTimezone,
