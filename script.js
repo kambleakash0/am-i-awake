@@ -34,8 +34,23 @@ structure.forEach(col => {
     clockEl.appendChild(column);
 });
 
-// Update Function
-const numberHeight = 80;
+// --- RESPONSIVE LOGIC STARTS HERE ---
+
+// Helper to get current height from CSS
+function getNumberHeight() {
+    // Grab the first number in the DOM to measure it
+    const sample = document.querySelector('.num');
+    // Default to 80 if not rendered yet
+    return sample ? sample.clientHeight : 80;
+}
+
+let currentNumberHeight = getNumberHeight();
+
+// Recalculate if window resizes (e.g. rotating phone)
+window.addEventListener('resize', () => {
+    currentNumberHeight = getNumberHeight();
+    updateClock(); // Force an immediate update so it snaps to place
+});
 
 function updateClock() {
     const now = new Date();
@@ -54,20 +69,16 @@ function updateClock() {
     for (const [id, value] of Object.entries(digits)) {
         const el = document.getElementById(id);
         if (el) {
-            // MATH UPDATE for "top: 50%" CSS:
-            // The strip starts anchored at the center of the screen.
-            // "0" is the first item. Its center is 40px down.
-            // We need to shift UP by 40px to center "0".
-            // For "1", we shift UP by (80 + 40) = 120px.
-
-            // Formula: - (Value * Height) - (Height / 2)
-            // But wait, we added padding: 20px in CSS!
-            // So "0" center is actually at 20px (padding) + 40px (half-height) = 60px.
+            // DYNAMIC MATH:
+            // 1. Get container center (50% of viewport)
+            // 2. We need to shift the active number UP by half its height
+            // 3. Plus the padding we added in CSS (20px)
 
             const padding = 20;
-            const centerOffset = numberHeight / 2; // 40
+            const centerOffset = currentNumberHeight / 2;
 
-            const y = - (parseInt(value) * numberHeight) - centerOffset - padding;
+            // Formula: - (Digit * Height) - (Half Height) - Padding
+            const y = - (parseInt(value) * currentNumberHeight) - centerOffset - padding;
 
             el.style.transform = `translateY(${y}px)`;
         }

@@ -140,3 +140,57 @@ body {
     padding: 5px 10px;
     border-radius: 4px;
 }
+
+/* Mobile Responsive Rules */
+@media (max-width: 700px) {
+
+    /* 1. Shrink the Columns */
+    .column {
+        width: 50px;
+        /* Desktop was 80px */
+        margin: 0 2px;
+        /* Tighter gaps */
+    }
+
+    /* 2. Adjust Group Spacing */
+    .column:nth-child(2),
+    .column:nth-child(4) {
+        margin-right: 15px;
+        /* Desktop was 40px */
+    }
+
+    /* 3. Shrink the Lenses */
+    .column::after {
+        width: 54px;
+        /* Slightly wider than column */
+        height: 54px;
+    }
+
+    /* 4. Shrink the Ribbons (The Strip) */
+    .numbers {
+        width: 40px;
+        /* Desktop was 60px */
+        margin-left: -20px;
+        /* Half of width */
+        border-radius: 20px;
+    }
+
+    /* 5. Shrink the Numbers (Font & Height) */
+    .num {
+        height: 60px;
+        /* Desktop was 80px */
+        line-height: 60px;
+        /* Keep centered */
+        font-size: 24px;
+        /* Smaller font */
+    }
+
+    /* 6. Move the Label */
+    .label {
+        width: 100%;
+        text-align: center;
+        bottom: 10%;
+        font-size: 10px;
+        letter-spacing: 2px;
+    }
+}
