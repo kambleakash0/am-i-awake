@@ -8,26 +8,27 @@
 
 Do you work with people who think "Asynchronous Communication" means "I will ping you at 4 AM your time and expect a reply"?
 
-**`am-i-awake`** is a visual status page that answers the age-old question: *"Is it a socially acceptable time to message [Your Name]?"*
+**`am-i-awake`** is a visual status page that answers the age-old question: *"Is it a socially acceptable time to message Akash?"*
 
 It features:
 
 * ✨ **Oddly Satisfying Animations:** Vertical sliding tape reels.
-* 🔮 **Glassmorphism:** Tactile lens effects with dynamic lighting.
+* 🔮 **Glassmorphism:** Tactile lens effects with dynamic lighting (liquid glass? 🤔).
 * 📱 **Responsive:** Looks good on your 4K monitor and your boss's iPhone.
 * 🌍 **Zero Config Deployment:** Runs entirely on GitHub Pages. No servers, no bills.
 
 ### 🎨 Inspiration
 
-The visual design is heavily inspired by the **`black_clock`** wallpaper from Steam's Wallpaper Engine Workshop.
+The visual design is heavily inspired by a reddit post on `r/oddlysatisfying` which pointed me to the original source, the **`black_clock`** wallpaper from Steam's Wallpaper Engine Workshop.
 
+* Check out the original post here: [r/oddlysatisfying post](https://www.reddit.com/r/oddlysatisfying/comments/lsa654/this_clock_hitting_midnight_is_oddly_satisfying/)
 * Check out the original concept here: [Steam Workshop: black_clock](https://steamcommunity.com/sharedfiles/filedetails/?id=2239404078)
 
 I wanted this aesthetic to live on the web, accessible via a URL, without needing the Wallpaper Engine app.
 
 ### 🚀 How to Use (Make it yours)
 
-1. **Fork** this repository.
+1. **Fork** this repository. (Optionally, star it if you like it! 🌟)
 2. Open `config.js` and update your timezone:
 
     ```javascript
@@ -40,7 +41,7 @@ I wanted this aesthetic to live on the web, accessible via a URL, without needin
 3. Go to **Settings > Pages** in your GitHub repository.
 4. Set the **Source** to the `main` branch and click **Save**.
 5. Wait about 60 seconds, and GitHub will give you your live URL.
-6. Send the link to that one coworker who always schedules meetings during your lunch break.
+6. Send the link to that one coworker/friend who always schedules meetings/calls you at 4 AM your time.
 
 ### 🛠 Tech Stack
 
@@ -50,4 +51,6 @@ I wanted this aesthetic to live on the web, accessible via a URL, without needin
 
 ### 📄 License
 
-[MIT](LICENSE). Steal this code. Use it. Just don't wake me up.
+[MIT](LICENSE)
+
+Steal this code. Use it. Just don't wake me up.
